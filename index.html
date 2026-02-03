@@ -21,7 +21,7 @@
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
       
       --radius: 16px;
-      --maxw: 1000px;
+      --maxw: 1200px;
     }
 
     *{box-sizing:border-box}
@@ -71,7 +71,7 @@
 
     /* Hero */
     .hero{padding: 60px 0 40px;}
-    .hero-grid{display:grid; grid-template-columns: 1.3fr 0.7fr; gap: 30px; align-items: start;}
+    .hero-grid{display:grid; grid-template-columns: 1fr; gap: 30px; align-items: start;}
     .hero-left{
       background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
       padding: 40px; box-shadow: var(--shadow-md); position: relative; overflow: hidden;
@@ -154,6 +154,26 @@
       .hero-grid{grid-template-columns: 1fr;}
       .nav{width: 100%; justify-content: space-between;}
     }
+  
+    .info-card{
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      margin: 18px 0 22px;
+    }
+    .info-card h3{
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: var(--text-main);
+    }
+    .info-card p{
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
   </style>
 </head>
 
@@ -180,7 +200,6 @@
       <section class="hero">
         <div class="hero-grid">
           <div class="hero-left">
-            <div class="pill"><span>●</span> Disponible Online</div>
             <h1 class="h1">Apps simples para ordenar <span>procesos reales</span>.</h1>
              <p class="lead">Hola, soy <strong>Matías</strong>, Soy de la ciudad de Santa Fe, Argentina.</p>
 
@@ -203,9 +222,6 @@
             <p class="lead">
               Si necesitás una app que se adapte a tu forma de trabajar —y no al revés—, estás en el lugar correcto.
             </p>
-
-            <button class="btn primary" onclick="document.getElementById('videos').scrollIntoView()">Ver demostraciones</button>
-          </div>
 <div style="margin-top: 30px; display:flex; gap:10px; flex-wrap:wrap;">
   <a href="https://wa.me/5493426284121?text=Hola!%20Como%20est%C3%A1s?%20acabo%20de%20ver%20tu%20p%C3%A1gina%20de%20aplicaciones%20y%20te%20contacto%20por%20lo%20siguiente:" target="_blank" class="btn" style="background:#25D366; color:white; padding: 12px 24px; font-size: 16px; border:none; text-decoration:none;">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle; margin-right:5px">
@@ -215,15 +231,43 @@
   </a>
 </div>
 
+            <button class="btn primary" onclick="document.getElementById('videos').scrollIntoView()">Ver demostraciones</button>
+          </div>
+
         </div>
       </section>
 
       <section id="videos">
         <div class="section-head">
-          <h2>Galería de Videos <span class="badge-count" id="videoCount">0</span></h2>
+          <h2>Galería de Videos con AppSheet <span class="badge-count" id="videoCount">0</span></h2>
         </div>
         <div class="grid" id="videoGrid"></div>
       </section>
+
+      <section id="appscript">
+        <div class="section-head">
+          <h2>Galería de Videos con Apps Script <span class="badge-count" id="appScriptCount">0</span></h2>
+        </div>
+
+        <!-- Cuadro explicativo -->
+        <div class="info-card">
+          <h3>Automatizaciones con Google Apps Script</h3>
+          <p>
+  En esta sección vas a ver demostraciones hechas con <strong>Apps Script</strong>. La idea es la misma que con
+  <strong>AppSheet</strong>: usar <strong>Google Sheets</strong> como base y convertirlo en una herramienta de trabajo
+  clara y ordenada.  
+  La diferencia es cómo funciona “por dentro”. Con Apps Script se puede definir el comportamiento
+  de la aplicación de una forma más personalizada, cuando el proceso lo necesita.
+  En la práctica, son <strong>las mismas páginas</strong> que viste antes, pero resueltas con otra lógica.
+  Cada ejemplo muestra cuándo conviene una opción u otra, siempre pensando en que la herramienta
+  se adapte a tu forma de trabajar.
+</p>
+
+        </div>
+
+        <div class="grid" id="appScriptGrid"></div>
+      </section>
+
     </div>
   </main>
 
@@ -276,6 +320,28 @@
       }
     ];
 
+
+    const APPSCRIPT_DEMOS = [
+      {
+        img: "https://i.postimg.cc/Dw52yGyD/Gemini_Generated_Image_bo2z5ebo2z5ebo2z.png",
+        url: "https://youtu.be/DnxVy2mJn_M",
+        desc: "Sistema de cursos caninos con comportamiento personalizado. La lógica se adapta al funcionamiento real del curso, sin limitarse a reglas predefinidas."
+
+      },
+      {
+        img: "https://i.postimg.cc/GmzchDhS/Gemini_Generated_Image_f7jitnf7jitnf7ji.png",
+        url: "https://youtu.be/hMHYnLf3sY8",
+        desc: "Versión del sistema de centro de estética con lógica personalizada. Permite definir reglas y comportamientos específicos para turnos, cabinas y tratamientos según la forma real de trabajo del centro."
+
+      },
+      {
+        img: "https://i.postimg.cc/W1S2bZby/Gemini_Generated_Image_rreflirreflirref.png",
+        url: "https://youtu.be/ODqkX42KyZo",
+        desc: "Sistema de canchas deportivas con lógica a medida, pensado para ajustarse al funcionamiento diario del complejo."
+
+      }
+    ];
+
     // --- NO TOQUES NADA DE AQUÍ PARA ABAJO ---
     const videoGrid = document.getElementById("videoGrid");
 
@@ -312,7 +378,15 @@
     VIDEOS.forEach((item, i) => videoGrid.appendChild(renderCard(item, i)));
     
     document.getElementById("videoCount").textContent = VIDEOS.length;
-    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Apps Script
+    const appScriptGrid = document.getElementById("appScriptGrid");
+    if(appScriptGrid){
+      APPSCRIPT_DEMOS.forEach((item, i) => appScriptGrid.appendChild(renderCard(item, i)));
+      document.getElementById("appScriptCount").textContent = APPSCRIPT_DEMOS.length;
+    }
+    const yearEl = document.getElementById("year");
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
   </script>
 </body>
 
