@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  
+  <style>
+    :root{
+      /* Paleta de Colores Viva */
+      --bg: #f8fafc;
+      --text-main: #070a11;
+      --text-muted: #232931;
+      --brand: #105dec; 
+      --brand-dark: #ffffff;
+      --accent: #10b981; 
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      
+      --radius: 16px;
+      --maxw: 1000px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    
+    body{
+      margin:0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      background-image: radial-gradient(#e0e7ff 1px, transparent 1px);
+      background-size: 24px 24px;
+      color: var(--text-main);
+      line-height:1.6;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:1000;
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner{display:flex; align-items:center; justify-content:space-between; padding: 16px 0;}
+    
+    .brand{display:flex; align-items:center; gap:12px;}
+    .logo{
+      width:42px; height:42px; border-radius:12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: white; display:grid; place-items:center; box-shadow: var(--shadow-md);
+    }
+    .logo svg{width:22px; height:22px}
+    .brand .name{font-weight:800; font-size: 18px; color: var(--text-main);}
+    .brand .tag{font-size:12px; font-weight: 600; color:var(--brand); text-transform: uppercase;}
+
+    .nav{display:flex; gap:12px;}
+    .btn{
+      appearance:none; border:none; background: transparent; color: var(--text-muted);
+      padding: 8px 16px; border-radius: 8px; font-weight:600; font-size: 14px; cursor:pointer;
+      transition: all .2s ease;
+    }
+    .btn:hover{color: var(--brand); background: #eff6ff;}
+    .btn.primary{background: var(--brand); color: white; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);}
+    .btn.primary:hover{background: var(--brand-dark); transform: translateY(-1px);}
+
+    /* Hero */
+    .hero{padding: 60px 0 40px;}
+    .hero-grid{display:grid; grid-template-columns: 1.3fr 0.7fr; gap: 30px; align-items: start;}
+    .hero-left{
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 40px; box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+    }
+    .hero-right{display:flex; flex-direction:column; gap:16px;}
+    
+    .pill{
+      display:inline-flex; align-items:center; gap:6px; padding: 6px 12px;
+      border-radius: 99px; background: #ecfdf5; color: var(--accent);
+      font-size: 12px; font-weight: 700; margin-bottom: 20px; border: 1px solid #d1fae5;
+    }
+    .h1{font-size: clamp(32px, 4vw, 48px); line-height:1.1; margin: 0 0 20px; font-weight: 800;}
+    .h1 span{color: var(--brand);}
+    .lead{color: var(--text-muted); font-size: 17px; margin-bottom: 20px;}
+    .mini{padding: 20px; background: white; border-radius: 12px; border: 1px solid var(--border);}
+    .mini h3{margin: 0 0 8px; color: var(--brand); text-transform:uppercase; font-size: 11px; letter-spacing: 0.1em;}
+    .mini p{margin:0; font-size: 14px; color: var(--text-muted);}
+
+    /* Videos Grid */
+    .section-head{margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0; display:flex; align-items:center;}
+    .section-head h2{font-size: 24px; margin:0; color: var(--text-main);}
+    .badge-count{background: var(--text-main); color:white; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-left: 10px;}
+
+    .grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;}
+.logo.mh-logo{
+  background: transparent;
+  padding: 0;
+}
+
+.logo.mh-logo img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+    /* TARJETA DE VIDEO (Modificada) */
+    .vid{
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0; /* Sin padding interno para que la imagen toque los bordes arriba */
+      display:flex; flex-direction:column;
+      transition: all 0.2s ease;
+      overflow: hidden; /* Para recortar la imagen */
+    }
+    .vid:hover{transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--brand);}
+
+    /* Contenedor de la imagen */
+    .vid-thumb{
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #e2e8f0;
+      position: relative;
+    }
+    .vid-thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Contenido de texto */
+    .vid-content{padding: 16px; display:flex; flex-direction:column; gap: 8px; flex-grow: 1;}
+    
+    .vid-title{font-weight: 700; color: var(--text-main); font-size: 16px; line-height: 1.3;}
+    .vid-link{font-size: 12px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+    
+    .vid-cta{
+      margin-top: auto;
+      padding-top: 12px;
+      font-size: 14px; font-weight: 700; color: var(--brand);
+      display:flex; align-items:center; gap: 5px;
+    }
+
+    .footer{text-align:center; padding: 40px 0; color: var(--text-muted); font-size: 14px; border-top: 1px solid var(--border); margin-top: 40px;}
+
+    @media (max-width: 800px){
+      .hero-grid{grid-template-columns: 1fr;}
+      .nav{width: 100%; justify-content: space-between;}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="topbar-inner">
+        <div class="brand">
+  <div class="logo mh-logo">
+    <img src="https://i.postimg.cc/3NB5bDVK/MH.jpg" alt="MH" />
+  </div>
+</div>
+        </div>
+        <nav class="nav">
+          <button class="btn" onclick="document.getElementById('inicio').scrollIntoView()">Inicio</button>
+          <button class="btn primary" onclick="document.getElementById('videos').scrollIntoView()">Videos</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="hero-left">
+            <div class="pill"><span>●</span> Disponible Online</div>
+            <h1 class="h1">Apps simples para ordenar <span>procesos reales</span>.</h1>
+             <p class="lead">Hola, soy <strong>Matías</strong>, Soy de la ciudad de Santa Fe, Argentina.</p>
+
+            <p class="lead">
+              Me dedico a diseñar y desarrollar aplicaciones prácticas para organizar procesos reales de trabajo,
+              usando <strong>AppSheet</strong> y <strong>Hojas de cálculo de Google</strong> como base.
+            </p>
+
+            <p class="lead">
+              Mi objetivo es ayudarte a <strong>ordenar información, automatizar tareas repetitivas y tener control claro de tu negocio</strong>,
+ Las apps que desarrollo están pensadas para usarse en el día a día:
+              desde el celular, la tablet o la computadora.
+            </p>
+
+            <p class="lead">
+              En esta página vas a encontrar ejemplos reales de trabajos, explicaciones claras de cómo funcionan y enlaces a videos donde muestro cada solución en funcionamiento.
+              Todo lo que ves acá está hecho para resolver problemas concretos, no para mostrar complejidad técnica.
+            </p>
+
+            <p class="lead">
+              Si necesitás una app que se adapte a tu forma de trabajar —y no al revés—, estás en el lugar correcto.
+            </p>
+
+            <button class="btn primary" onclick="document.getElementById('videos').scrollIntoView()">Ver demostraciones</button>
+          </div>
+<div style="margin-top: 30px; display:flex; gap:10px; flex-wrap:wrap;">
+  <a href="https://wa.me/5493426284121?text=Hola!%20Como%20est%C3%A1s?%20acabo%20de%20ver%20tu%20p%C3%A1gina%20de%20aplicaciones%20y%20te%20contacto%20por%20lo%20siguiente:" target="_blank" class="btn" style="background:#25D366; color:white; padding: 12px 24px; font-size: 16px; border:none; text-decoration:none;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle; margin-right:5px">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+    Contactame
+  </a>
+</div>
+
+        </div>
+      </section>
+
+      <section id="videos">
+        <div class="section-head">
+          <h2>Galería de Videos <span class="badge-count" id="videoCount">0</span></h2>
+        </div>
+        <div class="grid" id="videoGrid"></div>
+      </section>
+    </div>
+  </main>
+
+<script>
+    // --- EDITA AQUÍ ABAJO ---
+    // En "desc" escribe el texto que quieras que aparezca bajo la foto.
+    
+    const VIDEOS = [
+      {
+        img: "https://i.postimg.cc/VvjJvz5L/Gemini_Generated_Image_b4quvwb4quvwb4qu.png", 
+        url: "https://youtu.be/F3StuVHHRBI",
+        desc: "Sistema de control de ventas y stock. Permite registrar ventas, descontar stock automáticamente y controlar la cantidad de dinero que ingresa al negocio en tiempo real."
+
+      },
+      {
+        img: "https://i.postimg.cc/2yf5PgGX/Gemini_Generated_Image_zfut4tzfut4tzfut.png", 
+        url: "https://youtu.be/O4LrlrfvWHA",
+        desc: "Sistema de gestión de alquiler de disfraces. Permite organizar por categorías, talles y colores, registrar entregas y devoluciones, y llevar control del estado de cada prenda."
+
+      },
+      {
+        img: "https://i.postimg.cc/NfkywGWn/Gemini_Generated_Image_gx45b3gx45b3gx45.png", 
+        url: "https://youtu.be/mrSAM4s4wOA",
+        desc: "Sistema de gestión para centro de estética. Permite registrar clientes y turnos, organizar cabinas, cargar tratamientos por zona corporal y controlar los ingresos diarios por pagos y servicios."
+
+      },
+      {
+        img: "https://i.postimg.cc/VksJsQw1/Gemini_Generated_Image_hhgkhfhhgkhfhhgk.png", 
+        url: "https://youtu.be/vw7TBhTgOuk",
+        desc: "Sistema de gestión para taller mecánico de autos y motos. Permite registrar clientes, vehículos y mecánicos, cargar servicios realizados y llevar seguimiento del estado del vehículo con fotos y videos."
+
+      },
+      {
+        img: "https://i.postimg.cc/PqPNZWNB/Gemini_Generated_Image_hqt885hqt885hqt8.png", 
+        url: "https://youtu.be/BDAX0wO8Hgs",
+        desc: "Sistema de gestión para servicios de eventos. Permite contratar proveedores, registrar el lugar con ubicación, capacidad y precio, y organizar reservas y horarios del evento desde el inicio hasta el fin."
+
+      },
+      {
+        img: "https://i.postimg.cc/jSqDq0Tb/Gemini_Generated_Image_e97vnde97vnde97v.png", 
+        url: "https://youtu.be/hQVJmV6Xuq0",
+        desc: "Sistema de gestión de cursos caninos. Permite registrar cliente y perro (edad, raza, teléfono), cuota y estado de socio, calcular totales y porcentaje de ganancia del instructor, y mantener un histórico con anotaciones."
+
+      },
+      {
+        img: "https://i.postimg.cc/9QXDX52C/Gemini_Generated_Image_coptrecoptrecopt.png", 
+        url: "https://youtu.be/LS39gyMlM6o",
+        desc: "Sistema de gestión de canchas deportivas. Permite agendar canchas, controlar estado y mantenimiento, gestionar turnos por día y horario, registrar clientes y actividades, y visualizar la ganancia diaria en gráficos."
+
+      }
+    ];
+
+    // --- NO TOQUES NADA DE AQUÍ PARA ABAJO ---
+    const videoGrid = document.getElementById("videoGrid");
+
+    function renderCard(item, idx){
+      const a = document.createElement("a");
+      a.className = "vid";
+      a.href = item.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      
+      // Limpia la URL para mostrarla bonita
+      const cleanUrl = item.url.replace("https://", "").replace("youtu.be/", "yt.be/");
+
+      a.innerHTML = `
+        <div class="vid-thumb">
+          <img src="${item.img}" alt="Miniatura Video ${idx + 1}" loading="lazy">
+        </div>
+        <div class="vid-content">
+          <div class="vid-title">Demostración #${idx + 1}</div>
+          
+          <div class="vid-desc">
+            ${item.desc}
+          </div>
+
+          <div class="vid-cta">
+            Ver video
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      `;
+      return a;
+    }
+
+    VIDEOS.forEach((item, i) => videoGrid.appendChild(renderCard(item, i)));
+    
+    document.getElementById("videoCount").textContent = VIDEOS.length;
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
