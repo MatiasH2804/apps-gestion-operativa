@@ -370,10 +370,35 @@
       
       <section class="section-card" id="inicio">
         <h2 class="section-title">Acerca de mi trabajo</h2>
-        <p class="lead">Hola, soy <strong>Matías</strong>, de la ciudad de Santa Fe, Argentina.</p>
-        <p class="lead">Me dedico a diseñar y desarrollar aplicaciones prácticas para organizar procesos reales de trabajo, usando <strong>AppSheet</strong> y <strong>Hojas de cálculo de Google</strong> como base.</p>
-        <p class="lead">Mi objetivo es ayudarte a <strong>ordenar información, automatizar tareas repetitivas y tener control claro de tu negocio</strong>. Las apps que desarrollo están pensadas para usarse en el día a día: desde el celular, la tablet o la computadora.</p>
-        <p class="lead">En esta página vas a encontrar ejemplos reales de trabajos, explicaciones claras de cómo funcionan y enlaces a videos donde muestro cada solución en funcionamiento. Todo lo que ves acá está hecho para resolver problemas concretos, no para mostrar complejidad técnica.</p>
+        
+        <h3 style="margin: 1.5rem 0 0.5rem; color: var(--text-primary);">Quién soy</h3>
+        <p class="lead">Hola, soy <strong>Matías</strong> y vivo en Santa Fe, Argentina. Me dedico a desarrollar aplicaciones prácticas para organizar procesos reales de trabajo, y lo hago principalmente utilizando herramientas del ecosistema Google.</p>
+        
+        <h3 style="margin: 1.5rem 0 0.5rem; color: var(--text-primary);">Cómo trabajo</h3>
+        <p class="lead">El objetivo de mis soluciones es ayudarte a <strong>ordenar información, automatizar tareas repetitivas y tener un control claro</strong> del funcionamiento de un negocio. Las aplicaciones que desarrollo están pensadas para usarse diariamente desde el <strong>celular, la tablet o la computadora</strong>, integrándose fácilmente en situaciones reales del día a día.</p>
+        
+        <h3 style="margin: 1.5rem 0 0.5rem; color: var(--text-primary);">Dos formas de resolver un mismo problema</h3>
+        <p class="lead">Según la necesidad particular de cada negocio, utilizo dos enfoques distintos para implementar estas soluciones:</p>
+        
+        <div style="margin-bottom: 1.5rem; border-left: 4px solid var(--google-yellow); background: rgba(251, 188, 4, 0.05); padding: 15px; border-radius: 10px;">
+          <strong style="color: var(--text-primary); font-size: 1.1rem;">1. AppSheet</strong>
+          <ul style="color: var(--text-secondary); margin-top: 0.5rem; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.6;">
+            <li>Permite crear aplicaciones de gestión rápidamente.</li>
+            <li>Trabaja directamente sobre Google Sheets.</li>
+            <li>Facilita organizar datos, formularios y procesos.</li>
+            <li>Se consiguen apps funcionales sin desarrollar código complejo.</li>
+          </ul>
+        </div>
+        
+        <div style="margin-bottom: 2rem; border-left: 4px solid var(--google-blue); background: rgba(66, 133, 244, 0.05); padding: 15px; border-radius: 10px;">
+          <strong style="color: var(--text-primary); font-size: 1.1rem;">2. Apps Script</strong>
+          <ul style="color: var(--text-secondary); margin-top: 0.5rem; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.6;">
+            <li>Sirve para crear sistemas más personalizados.</li>
+            <li>Permite definir la lógica específica del funcionamiento operativo.</li>
+            <li>Brinda el poder de automatizar procesos complejos.</li>
+            <li>Hace posible construir interfaces adaptadas exactamente al flujo del negocio.</li>
+          </ul>
+        </div>
         
         <a href="https://wa.me/5493426284121?text=Hola!%20Como%20est%C3%A1s?%20acabo%20de%20ver%20tu%20p%C3%A1gina%20de%20aplicaciones%20y%20te%20contacto%20por%20lo%20siguiente:" target="_blank" class="btn-wsp">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -388,6 +413,9 @@
           Galería AppSheet
           <span class="badge-count" id="videoCount">0</span>
         </h2>
+        <p class="lead" style="background: rgba(251, 188, 4, 0.05); padding: 15px; border-radius: 10px; border-left: 4px solid var(--google-yellow);">
+          En esta galería vas a encontrar aplicaciones desarrolladas con <strong>AppSheet</strong>. Este enfoque es el ideal cuando se busca rapidez, organizar la recolección de datos y procesos base en <strong>Google Sheets</strong>, y tener herramientas operativas muy funcionales sin la necesidad de escribir código complejo.
+        </p>
         <div class="grid" id="videoGrid"></div>
       </section>
 
@@ -397,7 +425,7 @@
           <span class="badge-count" id="appScriptCount">0</span>
         </h2>
         <p class="lead" style="background: rgba(66, 133, 244, 0.05); padding: 15px; border-radius: 10px; border-left: 4px solid var(--google-blue);">
-          En esta sección vas a ver demostraciones hechas con <strong>Apps Script</strong>. La idea es la misma: usar <strong>Google Sheets</strong> como base. La diferencia es que con Apps Script se define el comportamiento de forma más personalizada para ajustarse exactamente a la lógica de tu negocio.
+          En esta sección vas a ver demostraciones hechas con <strong>Apps Script</strong>. A diferencia del enfoque anterior, en esto proyectos es posible <strong>definir procesos de forma totalmente personalizada</strong>, construyendo automatizaciones e interfaces construidas a medida para adaptarse de forma exacta al funcionamiento cotidiano de un negocio.
         </p>
         <div class="grid" id="appScriptGrid"></div>
       </section>
@@ -455,7 +483,12 @@
         img: "https://i.postimg.cc/CL0PcN9W/Gemini_Generated_Image_5j4i4f5j4i4f5j4i.png", 
         url: "https://youtu.be/S_3RBP87A7o",
         desc: "Aplicación de peluquería. Permite registrar clientes, turnos, servicios, compras de productos y medios de pago, con vistas ordenadas para agenda diaria y control de ingresos."
-      }
+      },
+      {
+        img: "https://i.postimg.cc/50dbByMp/Gemini-Generated-Image-95ls6c95ls6c95ls.png", 
+        url: "https://youtu.be/6P0anuJBAGw",
+        desc: "Aplicación básica de registros de asistencia y ventas, divididas en distintos tipos de vista según clasificación del usuario"
+      },
     ];
 
     const APPSCRIPT_DEMOS = [
@@ -483,6 +516,21 @@
         img: "https://i.postimg.cc/xd5x0QyF/unnamed.jpg", 
         url: "https://youtu.be/RTqhI8_36cs",
         desc: "Sistema integral de reservas para alquiler de disfraces. Además de organizar por categorías, talles y colores, permite gestionar clientes, controlar disponibilidad real en función de reservas activas, calcular señas y saldos automáticamente, y llevar un seguimiento claro del estado de cada alquiler."
+      },
+      {
+        img: "https://i.postimg.cc/Kc0y0J7b/Gemini-Generated-Image-9mpgjj9mpgjj9mpg.png", 
+        url: "https://youtu.be/P2X_bwdfirw",
+        desc: "App de gestión con vistas para alumno, profesor y dueño. Permite consultar actividades, asistencia y datos personales."
+      },
+      {
+        img: "https://i.postimg.cc/B692PQr5/Gemini-Generated-Image-5dt39n5dt39n5dt3.png", 
+        url: "https://youtu.be/37CS8xLn8qU",
+        desc: "App de gestión con vistas para dueño, y empleados; seguimiento de stock y ventas, con contador e imágenes incluidos"
+      },
+      {
+        img: "https://i.postimg.cc/zDPXxPft/sddefault.webp", 
+        url: "https://youtu.be/YuJjue2TG1s",
+        desc: "diseñado específicamente para la gestión de un corralón utilizando Google Apps Script. En esta demostración, recorremos las funciones esenciales de control de movimientos (ingresos y egresos), gestión de clientes y visualización de balances en tiempo real."
       },
 
     ];
