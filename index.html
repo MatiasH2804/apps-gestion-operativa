@@ -92,18 +92,20 @@
 
     /* ENCABEZADO */
     .header {
-      margin-bottom: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
 
     .top-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
 
     .logo-container img {
       width: 48px;
@@ -353,7 +355,44 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
     }
+/* CAJAS DESCRIPTIVAS GALERIAS */
+.gallery-box {
+  position: relative;
+  margin: 1rem 0 1.5rem;
+}
 
+.gallery-border {
+  padding: 4px;
+  border-radius: 18px;
+}
+
+.gallery-box.appsheet .gallery-border {
+  background-image: linear-gradient(135deg, #0b57d0, #4285f4, #8ab4f8, #d2e3fc);
+  box-shadow:
+    -18px -8px 26px -10px rgba(66, 133, 244, 0.45),
+    18px 8px 26px -10px rgba(11, 87, 208, 0.35);
+}
+
+.gallery-box.appscript .gallery-border {
+  background-image: linear-gradient(135deg, #0f9d58, #34a853, #81c995, #ceead6);
+  box-shadow:
+    -18px -8px 26px -10px rgba(52, 168, 83, 0.45),
+    18px 8px 26px -10px rgba(15, 157, 88, 0.35);
+}
+
+.gallery-input {
+  background: #212121;
+  color: white;
+  border-radius: 14px;
+  padding: 1.15rem 1.25rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  border: none;
+}
+
+.gallery-input strong {
+  color: white;
+}
     /* GRID VIDEOS */
     .grid {
       display: grid;
@@ -514,7 +553,7 @@
       
       <section class="section-card" id="inicio">
         <div class="intro-hero">
-          <span class="intro-pill">Trabajo práctico con Google</span>
+
           <h2 class="intro-title">Trabajo con Google Sheets, AppSheet y Apps Script para convertir procesos desordenados en sistemas simples de usar.</h2>
         </div>
 
@@ -568,9 +607,13 @@
           Galería AppSheet
           <span class="badge-count" id="videoCount">0</span>
         </h2>
-        <p class="lead" style="background: rgba(251, 188, 4, 0.05); padding: 15px; border-radius: 10px; border-left: 4px solid var(--google-yellow);">
-          En esta galería vas a encontrar aplicaciones desarrolladas con <strong>AppSheet</strong>. Este enfoque es el ideal cuando se busca rapidez, organizar la recolección de datos y procesos base en <strong>Google Sheets</strong>, y tener herramientas operativas muy funcionales sin la necesidad de escribir código complejo.
-        </p>
+        <div class="gallery-box appsheet">
+  <div class="gallery-border">
+    <div class="gallery-input">
+      En esta galería vas a encontrar aplicaciones desarrolladas con <strong>AppSheet</strong>. Este enfoque sirve cuando se busca rapidez, carga ordenada de datos, procesos base en <strong>Google Sheets</strong> y herramientas funcionales sin escribir código complejo.
+    </div>
+  </div>
+</div>
         <div class="grid" id="videoGrid"></div>
       </section>
 
@@ -579,22 +622,19 @@
           Galería Apps Script
           <span class="badge-count" id="appScriptCount">0</span>
         </h2>
-        <p class="lead" style="background: rgba(66, 133, 244, 0.05); padding: 15px; border-radius: 10px; border-left: 4px solid var(--google-blue);">
-          En esta sección vas a ver demostraciones hechas con <strong>Apps Script</strong>. A diferencia del enfoque anterior, en esto proyectos es posible <strong>definir procesos de forma totalmente personalizada</strong>, construyendo automatizaciones e interfaces construidas a medida para adaptarse de forma exacta al funcionamiento cotidiano de un negocio.
-        </p>
+        <div class="gallery-box appscript">
+  <div class="gallery-border">
+    <div class="gallery-input">
+      En esta sección vas a ver demostraciones hechas con <strong>Apps Script</strong>. Este enfoque permite crear procesos más personalizados, automatizaciones, interfaces propias y reglas adaptadas al funcionamiento real de cada negocio.
+    </div>
+  </div>
+</div>
         <div class="grid" id="appScriptGrid"></div>
       </section>
 
     </div>
 
-    <footer class="footer">
-      <div class="footer-dots">
-        <span class="dot blue"></span>
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
-      </div>
-    </footer>
+    
   </main>
 
   <script>
@@ -686,6 +726,11 @@
         img: "https://i.postimg.cc/zDPXxPft/sddefault.webp", 
         url: "https://youtu.be/YuJjue2TG1s",
         desc: "diseñado específicamente para la gestión de un corralón utilizando Google Apps Script. En esta demostración, recorremos las funciones esenciales de control de movimientos (ingresos y egresos), gestión de clientes y visualización de balances en tiempo real."
+      },
+      {
+        img: "https://i.postimg.cc/63HzJ45r/portada-vidio.png", 
+        url: "https://www.youtube.com/watch?v=4u3x2ntElm8",
+        desc: "como integrar a un sistema, el uso de apsheet y apscript simultaneamente para una misma base de datos, perimitiendo así verificar quien tiene acceso a la misma, y poder tenér control total sobre los usuarios y los contenidos que se pueden cargar"
       },
 
     ];
