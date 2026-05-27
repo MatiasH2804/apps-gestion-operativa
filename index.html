@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apps de Gestión Operativa · Matías</title>
+  <link rel="icon" type="image/png" href="https://github.com/MatiasH2804/apps-gestion-operativa/blob/main/Logo%20Henqu%C3%ADn.png?raw=true" />
+
+  <style>
+    /* VARIABLES ESTILO GOOGLE MODERN */
+    :root {
+      --google-blue: #4285f4;
+      --google-red: #ea4335;
+      --google-yellow: #fbbc04;
+      --google-green: #34a853;
+      --bg-light: #f8f9fa;
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --card-shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg-light);
+      min-height: 100vh;
+      color: var(--text-primary);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* FONDO ANIMADO */
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        125deg,
+        rgba(66, 133, 244, 0.05) 0%,
+        rgba(234, 67, 53, 0.05) 25%,
+        rgba(251, 188, 4, 0.05) 50%,
+        rgba(52, 168, 83, 0.05) 75%,
+        rgba(66, 133, 244, 0.05) 100%
+      );
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      z-index: -1;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      animation: containerAppear 0.6s ease-out;
+    }
+
+    @keyframes containerAppear {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ENCABEZADO */
+    .header {
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .logo-container img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: var(--card-shadow);
+    }
+
+    .google-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .google-blue { color: var(--google-blue); }
+    .google-red { color: var(--google-red); }
+    .google-yellow { color: var(--google-yellow); }
+    .google-green { color: var(--google-green); }
+
+    .subheader {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+    }
+
+    /* TARJETAS DE SECCIÓN */
+    .sections-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .section-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card:hover {
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .section-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .section-card:hover::before {
+      transform: translateX(0);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-count {
+      background: var(--bg-light);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .lead {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+    .lead strong {
+      color: var(--text-primary);
+    }
+
+    /* PRESENTACION INICIO */
+    .intro-hero {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .intro-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 8px;
+      color: #0B2447;
+      background: rgba(66, 133, 244, 0.08);
+      border: 1px solid rgba(11, 36, 71, 0.16);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .intro-pill::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--google-green);
+      box-shadow: 14px 0 0 var(--google-yellow), 28px 0 0 var(--google-red);
+    }
+
+    .intro-title {
+      max-width: 900px;
+      color: var(--text-primary);
+      font-size: clamp(1.65rem, 3vw, 2.35rem);
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.35rem;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .intro-field-card {
+      position: relative;
+      min-height: 178px;
+      padding: 1.35rem;
+      border: 2px solid #0B2447;
+      border-top: none;
+      background: white;
+      box-shadow: 8px 8px 0 0 #0B2447;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      overflow: hidden;
+    }
+
+    .intro-field-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 3px 3px 0 0 #0B2447;
+      background: #fff;
+    }
+
+    .intro-field-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 42%;
+      height: 4px;
+      background: var(--accent-color, var(--google-blue));
+    }
+
+    .intro-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #0B2447;
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .intro-label::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--accent-color, var(--google-blue));
+    }
+
+    .intro-copy {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .intro-topline,
+    .intro-underline {
+      position: absolute;
+      right: 0;
+      height: 2px;
+      width: 0;
+      background: #0B2447;
+      transition: width 0.35s ease;
+      pointer-events: none;
+    }
+
+    .intro-topline {
+      top: 0;
+    }
+
+    .intro-underline {
+      bottom: 0;
+    }
+
+    .intro-field-card:hover .intro-topline {
+      width: 35%;
+    }
+
+    .intro-field-card:hover .intro-underline {
+      width: 100%;
+    }
+
+    .intro-field-card:nth-child(1) { --accent-color: var(--google-blue); }
+    .intro-field-card:nth-child(2) { --accent-color: var(--google-green); }
+    .intro-field-card:nth-child(3) { --accent-color: var(--google-yellow); }
+    .intro-field-card:nth-child(4) { --accent-color: var(--google-red); }
+    .intro-field-card:nth-child(5) {
+      --accent-color: #0B2447;
+      grid-column: 1 / -1;
+      min-height: 150px;
+    }
+
+    /* BOTÓN WHATSAPP */
+    .btn-wsp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+      transition: all 0.2s ease;
+      margin-top: 1rem;
+    }
+
+    .btn-wsp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+    }
+
+    /* GRID VIDEOS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    /* TARJETA DE VIDEO */
+    .vid {
+      background: var(--bg-light);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+      overflow: hidden;
+      animation: linkAppear 0.4s ease-out both;
+    }
+
+    .vid:hover {
+      transform: translateY(-4px);
+      background: white;
+      border-color: rgba(66, 133, 244, 0.3);
+      box-shadow: var(--card-shadow);
+    }
+
+    .vid-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .vid-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .vid:hover .vid-thumb img {
+      transform: scale(1.05);
+    }
+
+    .vid-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .vid-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .vid-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .vid-cta {
+      margin-top: auto;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--google-blue);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.2s ease;
+    }
+
+    .vid:hover .vid-cta {
+      gap: 8px;
+    }
+
+    @keyframes linkAppear {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .footer-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .dot.blue { background: var(--google-blue); animation-delay: 0s; }
+    .dot.red { background: var(--google-red); animation-delay: 0.2s; }
+    .dot.yellow { background: var(--google-yellow); animation-delay: 0.4s; }
+    .dot.green { background: var(--google-green); animation-delay: 0.6s; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+      .section-card {
+        padding: 1.5rem;
+      }
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+      .intro-field-card,
+      .intro-field-card:nth-child(5) {
+        grid-column: auto;
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="gradient-bg"></div>
+
+  <main class="container">
+    <header class="header">
+      <div class="top-nav">
+        <div class="logo-container">
+          <img src="https://i.postimg.cc/3NB5bDVK/MH.jpg" alt="MH Logo" />
+        </div>
+      </div>
+      <h1 class="google-title">
+  <span class="google-red">Apps</span> <span class="google-blue">Simples</span>
+</h1>
+      <p class="subheader">Ordenando procesos reales con AppSheet y Apps Script</p>
+    </header>
+
+    <div class="sections-wrapper">
+      
+      <section class="section-card" id="inicio">
+        <div class="intro-hero">
+          <span class="intro-pill">Trabajo práctico con Google</span>
+          <h2 class="intro-title">Trabajo con Google Sheets, AppSheet y Apps Script para convertir procesos desordenados en sistemas simples de usar.</h2>
+        </div>
+
+        <div class="intro-grid">
+          <article class="intro-field-card">
+            <span class="intro-label">Quién soy</span>
+            <p class="intro-copy">Soy Matías, de Santa Fe. Hago aplicaciones prácticas para negocios, emprendimientos y equipos que necesitan ordenar su forma de trabajar.</p>
+            <span class="intro-topline"></span>
+            <span class="intro-underline"></span>
+          </article>
+
+          <article class="intro-field-card">
+            <span class="intro-label">Qué resuelvo</span>
+            <p class="intro-copy">Cuando hay datos repartidos, tareas repetidas, controles a mano o planillas que ya no alcanzan, armo una solución usable desde el celular o la computadora.</p>
+            <span class="intro-topline"></span>
+            <span class="intro-underline"></span>
+          </article>
+
+          <article class="intro-field-card">
+            <span class="intro-label">AppSheet</span>
+            <p class="intro-copy">Lo uso cuando el cliente necesita una app rápida, ordenada y conectada a Google Sheets: formularios, vistas, filtros, permisos y carga diaria de datos.</p>
+            <span class="intro-topline"></span>
+            <span class="intro-underline"></span>
+          </article>
+
+          <article class="intro-field-card">
+            <span class="intro-label">Apps Script</span>
+            <p class="intro-copy">Lo uso cuando hace falta algo más personalizado: automatizaciones, interfaces web, reglas propias, validaciones y procesos que AppSheet no cubre bien.</p>
+            <span class="intro-topline"></span>
+            <span class="intro-underline"></span>
+          </article>
+
+          <article class="intro-field-card">
+            <span class="intro-label">Mi enfoque</span>
+            <p class="intro-copy">No vendo una app genérica. Primero miro cómo trabaja realmente la persona o el negocio, y después armo una herramienta que acompañe ese flujo.</p>
+            <span class="intro-topline"></span>
+            <span class="intro-underline"></span>
+          </article>
+        </div>
+        
+        <a href="https://wa.me/5493426284121?text=Hola!%20Como%20est%C3%A1s?%20acabo%20de%20ver%20tu%20p%C3%A1gina%20de%20aplicaciones%20y%20te%20contacto%20por%20lo%20siguiente:" target="_blank" class="btn-wsp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Contactame
+        </a>
+      </section>
+
+      <section class="section-card" id="videos">
+        <h2 class="section-title">
+          Galería AppSheet
+          <span class="badge-count" id="videoCount">0</span>
+        </h2>
+        <p class="lead" style="background: rgba(251, 188, 4, 0.05); padding: 15px; border-radius: 10px; border-left: 4px solid var(--google-yellow);">
+          En esta galería vas a encontrar aplicaciones desarrolladas con <strong>AppSheet</strong>. Este enfoque es el ideal cuando se busca rapidez, organizar la recolección de datos y procesos base en <strong>Google Sheets</strong>, y tener herramientas operativas muy funcionales sin la necesidad de escribir código complejo.
+        </p>
+        <div class="grid" id="videoGrid"></div>
+      </section>
+
+      <section class="section-card" id="appscript">
+        <h2 class="section-title">
+          Galería Apps Script
+          <span class="badge-count" id="appScriptCount">0</span>
+        </h2>
+        <p class="lead" style="background: rgba(66, 133, 244, 0.05); padding: 15px; border-radius: 10px; border-left: 4px solid var(--google-blue);">
+          En esta sección vas a ver demostraciones hechas con <strong>Apps Script</strong>. A diferencia del enfoque anterior, en esto proyectos es posible <strong>definir procesos de forma totalmente personalizada</strong>, construyendo automatizaciones e interfaces construidas a medida para adaptarse de forma exacta al funcionamiento cotidiano de un negocio.
+        </p>
+        <div class="grid" id="appScriptGrid"></div>
+      </section>
+
+    </div>
+
+    <footer class="footer">
+      <div class="footer-dots">
+        <span class="dot blue"></span>
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const VIDEOS = [
+      {
+        img: "https://i.postimg.cc/VvjJvz5L/Gemini_Generated_Image_b4quvwb4quvwb4qu.png", 
+        url: "https://youtu.be/F3StuVHHRBI",
+        desc: "Sistema de control de ventas y stock. Permite registrar ventas, descontar stock automáticamente y controlar la cantidad de dinero que ingresa al negocio en tiempo real."
+      },
+      {
+        img: "https://i.postimg.cc/2yf5PgGX/Gemini_Generated_Image_zfut4tzfut4tzfut.png", 
+        url: "https://youtu.be/O4LrlrfvWHA",
+        desc: "Sistema de gestión de alquiler de disfraces. Permite organizar por categorías, talles y colores, registrar entregas y devoluciones, y llevar control del estado de cada prenda."
+      },
+      {
+        img: "https://i.postimg.cc/NfkywGWn/Gemini_Generated_Image_gx45b3gx45b3gx45.png", 
+        url: "https://youtu.be/mrSAM4s4wOA",
+        desc: "Sistema de gestión para centro de estética. Permite registrar clientes y turnos, organizar cabinas, cargar tratamientos por zona corporal y controlar los ingresos diarios por pagos y servicios."
+      },
+      {
+        img: "https://i.postimg.cc/VksJsQw1/Gemini_Generated_Image_hhgkhfhhgkhfhhgk.png", 
+        url: "https://youtu.be/vw7TBhTgOuk",
+        desc: "Sistema de gestión para taller mecánico de autos y motos. Permite registrar clientes, vehículos y mecánicos, cargar servicios realizados y llevar seguimiento del estado del vehículo con fotos y videos."
+      },
+      {
+        img: "https://i.postimg.cc/PqPNZWNB/Gemini_Generated_Image_hqt885hqt885hqt8.png", 
+        url: "https://youtu.be/BDAX0wO8Hgs",
+        desc: "Sistema de gestión para servicios de eventos. Permite contratar proveedores, registrar el lugar con ubicación, capacidad y precio, y organizar reservas y horarios del evento desde el inicio hasta el fin."
+      },
+      {
+        img: "https://i.postimg.cc/jSqDq0Tb/Gemini_Generated_Image_e97vnde97vnde97v.png", 
+        url: "https://youtu.be/hQVJmV6Xuq0",
+        desc: "Sistema de gestión de cursos caninos. Permite registrar cliente y perro (edad, raza, teléfono), cuota y estado de socio, calcular totales y porcentaje de ganancia del instructor, y mantener un histórico con anotaciones."
+      },
+      {
+        img: "https://i.postimg.cc/9QXDX52C/Gemini_Generated_Image_coptrecoptrecopt.png", 
+        url: "https://youtu.be/LS39gyMlM6o",
+        desc: "Sistema de gestión de canchas deportivas. Permite agendar canchas, controlar estado y mantenimiento, gestionar turnos por día y horario, registrar clientes y actividades, y visualizar la ganancia diaria en gráficos."
+      },
+      {
+        img: "https://i.postimg.cc/CL0PcN9W/Gemini_Generated_Image_5j4i4f5j4i4f5j4i.png", 
+        url: "https://youtu.be/S_3RBP87A7o",
+        desc: "Aplicación de peluquería. Permite registrar clientes, turnos, servicios, compras de productos y medios de pago, con vistas ordenadas para agenda diaria y control de ingresos."
+      },
+      {
+        img: "https://i.postimg.cc/50dbByMp/Gemini-Generated-Image-95ls6c95ls6c95ls.png", 
+        url: "https://youtu.be/6P0anuJBAGw",
+        desc: "Aplicación básica de registros de asistencia y ventas, divididas en distintos tipos de vista según clasificación del usuario"
+      },
+    ];
+
+    const APPSCRIPT_DEMOS = [
+      {
+        img: "https://i.postimg.cc/Dw52yGyD/Gemini_Generated_Image_bo2z5ebo2z5ebo2z.png",
+        url: "https://youtu.be/DnxVy2mJn_M",
+        desc: "Sistema de cursos caninos con comportamiento personalizado. La lógica se adapta al funcionamiento real del curso, sin limitarse a reglas predefinidas."
+      },
+      {
+        img: "https://i.postimg.cc/GmzchDhS/Gemini_Generated_Image_f7jitnf7jitnf7ji.png",
+        url: "https://youtu.be/hMHYnLf3sY8",
+        desc: "Versión del sistema de centro de estética con lógica personalizada. Permite definir reglas y comportamientos específicos para turnos, cabinas y tratamientos."
+      },
+      {
+        img: "https://i.postimg.cc/W1S2bZby/Gemini_Generated_Image_rreflirreflirref.png",
+        url: "https://youtu.be/ODqkX42KyZo",
+        desc: "Sistema de canchas deportivas con lógica a medida, pensado para ajustarse al funcionamiento diario del complejo."
+      },
+      {
+        img: "https://i.postimg.cc/jdTgMXBB/Gemini_Generated_Image_irirtnirirtnirir.png", 
+        url: "https://youtu.be/4GfHnGbmGDA",
+        desc: "Versión web del sistema de peluquería. Incluye carga y consulta rápida de turnos, servicios, profesionales disponibles y clientes."
+      },
+      {
+        img: "https://i.postimg.cc/xd5x0QyF/unnamed.jpg", 
+        url: "https://youtu.be/RTqhI8_36cs",
+        desc: "Sistema integral de reservas para alquiler de disfraces. Además de organizar por categorías, talles y colores, permite gestionar clientes, controlar disponibilidad real en función de reservas activas, calcular señas y saldos automáticamente, y llevar un seguimiento claro del estado de cada alquiler."
+      },
+      {
+        img: "https://i.postimg.cc/Kc0y0J7b/Gemini-Generated-Image-9mpgjj9mpgjj9mpg.png", 
+        url: "https://youtu.be/P2X_bwdfirw",
+        desc: "App de gestión con vistas para alumno, profesor y dueño. Permite consultar actividades, asistencia y datos personales."
+      },
+      {
+        img: "https://i.postimg.cc/B692PQr5/Gemini-Generated-Image-5dt39n5dt39n5dt3.png", 
+        url: "https://youtu.be/37CS8xLn8qU",
+        desc: "App de gestión con vistas para dueño, y empleados; seguimiento de stock y ventas, con contador e imágenes incluidos"
+      },
+      {
+        img: "https://i.postimg.cc/zDPXxPft/sddefault.webp", 
+        url: "https://youtu.be/YuJjue2TG1s",
+        desc: "diseñado específicamente para la gestión de un corralón utilizando Google Apps Script. En esta demostración, recorremos las funciones esenciales de control de movimientos (ingresos y egresos), gestión de clientes y visualización de balances en tiempo real."
+      },
+
+    ];
+
+    function renderCard(item, idx, delayBase){
+      const a = document.createElement("a");
+      a.className = "vid";
+      a.href = item.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.style.animationDelay = `${delayBase + (idx * 0.1)}s`;
+      
+      a.innerHTML = `
+        <div class="vid-thumb">
+          <img src="${item.img}" alt="Miniatura Video ${idx + 1}" loading="lazy">
+        </div>
+        <div class="vid-content">
+          <div class="vid-title">Demostración #${idx + 1}</div>
+          <div class="vid-desc">${item.desc}</div>
+          <div class="vid-cta">
+            Ver video
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      `;
+      return a;
+    }
+
+    const videoGrid = document.getElementById("videoGrid");
+    VIDEOS.forEach((item, i) => videoGrid.appendChild(renderCard(item, i, 0.2)));
+    document.getElementById("videoCount").textContent = VIDEOS.length;
+
+    const appScriptGrid = document.getElementById("appScriptGrid");
+    if(appScriptGrid){
+      APPSCRIPT_DEMOS.forEach((item, i) => appScriptGrid.appendChild(renderCard(item, i, 0.4)));
+      document.getElementById("appScriptCount").textContent = APPSCRIPT_DEMOS.length;
+    }
+
+    const yearEl = document.getElementById("year");
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
