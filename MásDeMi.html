@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Más de mí · Matías</title>
+    <link rel="icon" type="image/png" href="https://github.com/MatiasH2804/apps-gestion-operativa/blob/main/Logo%20Henqu%C3%ADn.png?raw=true" />
+
+
+    <!-- Mismo CSS del sitio principal -->
+    <link rel="stylesheet" href="stile.css">
+</head>
+<body>
+
+<main class="container">
+
+    <header class="header">
+        <h1>Más de mí</h1>
+
+        <p class="subheader">
+            Algunos proyectos, videos e intereses personales.
+        </p>
+    </header>
+
+
+    <!-- TEXTO -->
+    <section class="section-card">
+
+        <p>
+            Acá te muestro un poco más de mis proyectos, éstos varían, algúnos no son literalmente aplicaciónes web
+            Sino que son creados como método de estudio para distintos contextos, o como uso personal, pero que aportan mucho
+            al uso diario
+        </p>
+
+    </section>
+
+
+    <!-- GALERÍA -->
+    <section class="section-card">
+
+        <h2 class="section-title">
+            Videos y proyectos personales
+        </h2>
+
+        <div class="grid" id="galeriaPersonal"></div>
+
+    </section>
+
+
+    <div style="text-align:center;margin-top:40px;">
+        <a href="index.html" class="btn-wsp">
+            Volver
+        </a>
+    </div>
+
+</main>
+
+
+<script>
+
+const PROYECTOS = [
+
+{
+    img: "https://i.postimg.cc/wvBM9NKh/Gemini-Generated-Image-k7rzkrk7rzkrk7rz.png",
+    url: "https://matiash2804.github.io/Parte-de-algebra---Mate-Basica---Henquin/",
+    desc: "Página para calcular determinantes de matrices, de 2x2 hasta NxN, viendo el paso a paso"
+},
+{
+    img: "https://i.postimg.cc/0NDFrXvp/Datos.png",
+    url: "https://matiash2804.github.io/CDD-Estadistica-Henquin/",
+    desc: "Acá vamos a analizar datos de una lista, calculando Cuartiles, rango, mediana, desvío, IQR, etc"
+},
+{
+    img: "https://i.postimg.cc/YqWmjT0W/Gemini-Generated-Image-lbgrbvlbgrbvlbgr.png",
+    url: "https://matiash2804.github.io/Calendario-Espiteam/",
+    desc: "Simplemente un calendario de organización, para un area de una comunidad, para poder ver que se hizo, quien, cuando, y como"
+},
+{
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE8TyDyoQ7CBvc3fSu5P_LcnoPrqH8i6o1ZQ&s",
+    url: "https://matiash2804.github.io/Razon-de-cambio-Henquin/",
+    desc: "Razón de cambio"
+},
+{
+    img: "https://www.shutterstock.com/image-photo/image-icons-mathematical-equations-over-260nw-2447311609.jpg",
+    url: "https://matiash2804.github.io/Analisis-De-Funciones-Calculo-1-/",
+    desc: "Análisis de funcion"
+},
+{
+    img: "https://i.ytimg.com/vi/f02VXhX-35E/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD7hG9RJ6_EIHLgIktTSr1nIIU4vw",
+    url: "https://matiash2804.github.io/Areas-Entre-Curvas-Integrales-/",
+    desc: "Area entre curvas"
+},
+// Agregar más elementos acá
+
+/*
+{
+    img: "URL_DE_IMAGEN",
+    url: "URL_DEL_VIDEO",
+    desc: "Descripción"
+},
+*/
+
+];
+
+
+function renderCard(item, idx){
+
+    const a = document.createElement("a");
+
+    a.className = "vid";
+
+    a.href = item.url;
+
+    a.target = "_blank";
+
+    a.innerHTML = `
+        <div class="vid-thumb">
+            <img src="${item.img}" loading="lazy">
+        </div>
+
+        <div class="vid-content">
+
+            <div class="vid-title">
+                Proyecto #${idx+1}
+            </div>
+
+            <div class="vid-desc">
+                ${item.desc}
+            </div>
+
+        </div>
+    `;
+
+    return a;
+}
+
+
+const contenedor = document.getElementById("galeriaPersonal");
+
+PROYECTOS.forEach(
+    (item,i)=>contenedor.appendChild(renderCard(item,i))
+);
+
+</script>
+
+</body>
+</html>
